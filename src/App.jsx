@@ -1,19 +1,53 @@
 import { useState } from 'react';
+import { NewTodoForm } from './NewTodoForm';
+import { TodoItem } from './TodoItem';
 
 function App() {
-  // let paraColor = 'green';
-  const [paraColor, setParaColor] = useState('green');
+  const [todos, setTodos] = useState([]);
 
-  const consumeWeed = () => {
-    setParaColor('red');
-  };
+  function addTodo(title) {
+    setTodos((currentTodos) => {
+      return [
+        ...currentTodos,
+        { id: crypto.randomUUID(), title: title, completed: false },
+      ];
+    });
+  }
+
+  function toggleTodo(id, completed) {
+    setTodos((currentTodos) => {
+      return currentTodos.map((todo) => {
+        if (todo.id === id) {
+          return { ...todo, completed };
+        }
+        return todo;
+      });
+    });
+  }
+
+  function deleteTodo(id) {
+    setTodos((currentTodos) => {
+      return currentTodos.filter((todo) => todo.id !== id);
+    });
+  }
 
   return (
     <>
-      <h1>Hello, World!</h1>
-      <p style={{ color: paraColor }} onClick={consumeWeed}>
-        Welcome to the jungle. na nan na na ni ni.
-      </p>
+      <NewTodoForm onSubmit={addTodo} />
+      <h1 className="header">Todos List</h1>
+      <ul className="list">
+        {todos.length === 0 && 'No Todos'}
+        {todos.map((todo) => {
+          return (
+            <TodoItem
+              {...todo}
+              key={todo.id}
+              toggleTodo={toggleTodo}
+              deleteTodo={deleteTodo}
+            />
+          );
+        })}
+      </ul>
     </>
   );
 }
