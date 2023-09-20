@@ -13,7 +13,7 @@ function App() {
       ];
     });
   }
-
+  //TOOGLE todos
   function toggleTodo(id, completed) {
     setTodos((currentTodos) => {
       return currentTodos.map((todo) => {
