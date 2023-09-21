@@ -4,7 +4,7 @@ import { TodoItem } from './TodoItem';
 
 function App() {
   const [todos, setTodos] = useState([]);
-
+  //add todo function
   function addTodo(title) {
     setTodos((currentTodos) => {
       return [
