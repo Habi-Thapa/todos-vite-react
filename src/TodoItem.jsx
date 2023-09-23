@@ -1,4 +1,6 @@
 // eslint-disable-next-line react/prop-types
+
+//proptypes add please
 export const TodoItem = ({ completed, id, title, toggleTodo, deleteTodo }) => {
   return (
     <li key={id}>
